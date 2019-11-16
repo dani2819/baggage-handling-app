@@ -7,7 +7,7 @@ const Trip = ({ changeTitle }) => {
   const [trip, setTrip] = useState(null);
 
   useEffect(() => {
-    setTrip({
+    const trip = {
       baggageId: "asdasdasd",
       source: "HKI",
       destination: "KHI",
@@ -30,7 +30,9 @@ const Trip = ({ changeTitle }) => {
           timeStamp: "2019-01-01"
         }
       ]
-    });
+    };
+    setTrip(trip);
+    changeTitle(`${trip.source} - ${trip.destination}`);
   }, []);
 
   useEffect(() => {
@@ -43,8 +45,12 @@ const Trip = ({ changeTitle }) => {
   const mappedTrip = mapTripWithMessages(trip);
   console.log(mappedTrip);
   const { status } = mappedTrip;
+  const mapsSrc = `https://maps.google.com/maps?q=${status.locationName}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
   return (
     <div>
+      <iframe width="100%" src={mapsSrc} scrolling="no"></iframe>
+      <Divider />
+      <WhiteSpace />
       <Card>
         <Card.Meta title={status.message} description={status.submessage} />
       </Card>
@@ -62,7 +68,7 @@ const Trip = ({ changeTitle }) => {
               />
             }
           >
-            <p>{`${event.timeStamp} - ${event.message} - ${event.locationName}`}</p>
+            <p>{`${event.timeStamp} - ${event.locationName} - ${event.message}`}</p>
             <WhiteSpace />
           </Timeline.Item>
         ))}
