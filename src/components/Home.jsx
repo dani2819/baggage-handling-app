@@ -1,102 +1,95 @@
 import React from "react";
+import { Icon } from "antd";
 import { Button, WhiteSpace } from "antd-mobile";
+import { Card, Timeline } from "antd";
+
+import "../styles/Home.less";
+
+const FloatingButton = props => (
+  <Button type="primary" className="floating-btn" onClick={props.onBtnClick}>
+    <Icon type="camera" twoToneColor={true} /> {"  "}
+    Track a new baggage
+  </Button>
+);
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.changeTitle("Jani Nice");
+  state = {
+    trips: [
+      {
+        baggageId: "asdasdasd",
+        source: "HKI",
+        destination: "KHI",
+        date: "November, 16, 2019",
+        status: {
+          // This is the last event
+          eventCode: "BAGGAGE_DROPPED",
+          locationName: "Helsinki"
+        }
+      },
+      {
+        baggageId: "asdasdasd",
+        source: "HKI",
+        destination: "KHI",
+        date: "November, 16, 2019",
+        status: {
+          // This is the last event
+          eventCode: "BAGGAGE_DROPPED",
+          locationName: "Helsinki"
+        }
+      },
+      {
+        baggageId: "asdasdasd",
+        source: "HKI",
+        destination: "KHI",
+        date: "November, 16, 2019",
+        status: {
+          // This is the last event
+          eventCode: "BAGGAGE_DROPPED",
+          locationName: "Helsinki"
+        }
+      }
+    ]
+  };
+  onFloatingBtnClicked(e) {
+    e.preventDefault();
+    return this.props.history.push("/qr-reader");
   }
+  componentDidMount() {
+    this.props.changeTitle("Your Trips");
+  }
+
+  changeRoute = url => this.props.history.push(url);
+
   render() {
+    const { trips } = this.state;
     return (
       <>
-        <Button>default</Button>
+        <FloatingButton onBtnClick={this.onFloatingBtnClicked.bind(this)} />
         <WhiteSpace />
-        <Button disabled>default disabled</Button>
-        <WhiteSpace />
-
-        <Button type="primary">primary</Button>
-        <WhiteSpace />
-        <Button type="primary" disabled>
-          primary disabled
-        </Button>
-        <WhiteSpace />
-
-        <Button type="warning">warning</Button>
-        <WhiteSpace />
-        <Button type="warning" disabled>
-          warning disabled
-        </Button>
-        <WhiteSpace />
-
-        <Button loading>loading button</Button>
-        <WhiteSpace />
-        <Button icon="check-circle-o">with icon</Button>
-        <WhiteSpace />
-        <Button
-          icon={
-            <img
-              src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg"
-              alt=""
-            />
-          }
-        >
-          with custom icon
-        </Button>
-        <WhiteSpace />
-        <Button
-          icon="check-circle-o"
-          inline
-          size="small"
-          style={{ marginRight: "4px" }}
-        >
-          with icon and inline
-        </Button>
-        <Button icon="check-circle-o" inline size="small">
-          with icon and inline
-        </Button>
-        <WhiteSpace />
-
-        {/* <Button activeStyle={false}>无点击反馈</Button><WhiteSpace /> */}
-        {/* <Button activeStyle={{ backgroundColor: 'red' }}>custom feedback style</Button><WhiteSpace /> */}
-
-        <WhiteSpace />
-        <Button type="primary" inline style={{ marginRight: "4px" }}>
-          inline primary
-        </Button>
-        {/* use `am-button-borderfix`. because Multiple buttons inline arranged, the last one border-right may not display */}
-        <Button
-          type="ghost"
-          inline
-          style={{ marginRight: "4px" }}
-          className="am-button-borderfix"
-        >
-          inline ghost
-        </Button>
-
-        <WhiteSpace />
-        <Button
-          type="primary"
-          inline
-          size="small"
-          style={{ marginRight: "4px" }}
-        >
-          primary
-        </Button>
-        <Button type="primary" inline size="small" disabled>
-          primary disabled
-        </Button>
-        <WhiteSpace />
-        <Button type="ghost" inline size="small" style={{ marginRight: "4px" }}>
-          ghost
-        </Button>
-        {/* use `am-button-borderfix`. because Multiple buttons inline arranged, the last one border-right may not display */}
-        <Button
-          type="ghost"
-          inline
-          size="small"
-          className="am-button-borderfix"
-          disabled
-        >
-          ghost disabled
-        </Button>
+        <div className="trips">
+          <Timeline>
+            {trips &&
+              trips.map(trip => (
+                <Timeline.Item>
+                  <Card
+                    className="trip"
+                    onClick={() => {
+                      this.changeRoute("/trip/" + trip.baggageId);
+                    }}
+                  >
+                    <h1>{`${trip.source} - ${trip.destination}`}</h1>
+                    <p>{`${trip.date}`}</p>
+                  </Card>
+                </Timeline.Item>
+              ))}
+            {!trips && (
+              <>
+                <br />
+                <br />
+                <h2>Sorry no trips available, start by adding a Trip!</h2>
+              </>
+            )}
+          </Timeline>
+        </div>
       </>
     );
   }

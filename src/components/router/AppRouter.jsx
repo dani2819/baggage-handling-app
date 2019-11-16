@@ -4,6 +4,7 @@ import { WingBlank } from "antd-mobile";
 import Home from "../Home";
 import QrReader from "../QrReader";
 import Header from "../Header";
+import Trip from "../Trip";
 
 class getRoutes extends React.Component {
   state = { title: "Home" };
@@ -27,11 +28,12 @@ class getRoutes extends React.Component {
             <Route
               path="/qr-reader"
               changeTitle={this.changeTitle}
+              Component={QrReader}
+            />
+            <Route
+              path="/trip/:id"
               render={props => (
-                <QrReader
-                  {...props}
-                  changeTitle={this.changeTitle.bind(this)}
-                />
+                <Trip {...props} changeTitle={this.changeTitle.bind(this)} />
               )}
             />
           </Switch>
