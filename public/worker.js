@@ -9,7 +9,6 @@ const messaging = firebase.messaging();
 var CACHE_NAME = 'pwa-task-manager';
 var urlsToCache = [
   '/',
-  '/completed'
 ];
 
 // Install a service worker
