@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { NavBar } from "antd-mobile";
+import { NavBar, WhiteSpace } from "antd-mobile";
 
 class Header extends Component {
   render() {
     return (
-      <NavBar>
-        <b>{this.props.title}</b>
-      </NavBar>
+      <>
+        <NavBar>
+          <b>{this.props.title}</b>
+        </NavBar>
+        <WhiteSpace />
+      </>
     );
   }
 }
