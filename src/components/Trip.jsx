@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { mapTripWithMessages } from "../utils/utils";
 import { WhiteSpace } from "antd-mobile";
+import moment from "moment";
 import { Divider, Timeline, Icon, Card, Button } from "antd";
 import { getBaggageData } from "../services/userApi";
 import "../styles/Trip.less";
@@ -12,10 +13,9 @@ const Trip = ({ changeTitle, match }) => {
     const getTrip = async () => {
       const trip = await getBaggageData(match.params.id);
       setTrip(trip.data.data);
-      console.log(trip.data.data);
     };
     getTrip();
-    //changeTitle(`${trip.source} - ${trip.destination}`);
+    // changeTitle(`${trip.source} - ${trip.destination}`);
   }, []);
 
   useEffect(() => {
@@ -53,7 +53,9 @@ const Trip = ({ changeTitle, match }) => {
               />
             }
           >
-            <p>{`${event.timeStamp} - ${event.location} - ${event.message}`}</p>
+            <p>{`${moment(event.timestamp).format(`h:mm A`)} - ${
+              event.location
+            } - ${event.message}`}</p>
             <WhiteSpace />
           </Timeline.Item>
         ))}
