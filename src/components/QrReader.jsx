@@ -3,12 +3,12 @@ import QrReader from "react-qr-reader";
 import "../styles/qr-reader.less";
 
 export function QrScanner() {
-  const [setResult] = useState("No result");
+  const [result, setResult] = useState("No result");
 
   const handleScan = data => {
     if (data) {
-      setResult(data);
-      localStorage.setItem('qr-code', data.toString())
+      setResult(result);
+      localStorage.setItem('qr-code', data.toString());
     }
   };
 
