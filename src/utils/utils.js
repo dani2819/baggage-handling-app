@@ -38,8 +38,7 @@ export const mapTripWithMessages = trip => {
   const eventData = EVENT_CODES[status.eventType];
   trip.status = { ...trip.status, ...eventData };
   trip.events = trip.events.map(event => {
-    const status = trip.status;
-    const eventData = EVENT_CODES[status.eventType];
+    const eventData = EVENT_CODES[event.eventType];
     return { ...event, ...eventData };
   });
   return trip;

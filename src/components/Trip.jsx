@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { mapTripWithMessages } from "../utils/utils";
+import { WhiteSpace } from "antd-mobile";
+import { Divider, Timeline, Icon, Card } from "antd";
+
 const Trip = ({ changeTitle }) => {
   const [trip, setTrip] = useState(null);
 
@@ -20,6 +23,11 @@ const Trip = ({ changeTitle }) => {
           eventType: "CHECKED_IN",
           locationName: "Istanbul",
           timeStamp: "2019-01-01"
+        },
+        {
+          eventType: "LOADED",
+          locationName: "Istanbul",
+          timeStamp: "2019-01-01"
         }
       ]
     });
@@ -34,7 +42,33 @@ const Trip = ({ changeTitle }) => {
   }
   const mappedTrip = mapTripWithMessages(trip);
   console.log(mappedTrip);
-  return <div> {trip.baggageId}</div>;
+  const { status } = mappedTrip;
+  return (
+    <div>
+      <Card>
+        <Card.Meta title={status.message} description={status.submessage} />
+      </Card>
+      <WhiteSpace />
+      <Divider />
+      <h1>Baggage History</h1>
+      <WhiteSpace />
+      <Timeline>
+        {mappedTrip.events.map(event => (
+          <Timeline.Item
+            dot={
+              <Icon
+                type={event.type == "fail" ? "clock-circle-o" : "check-circle"}
+                style={{ fontSize: "16px" }}
+              />
+            }
+          >
+            <p>{`${event.timeStamp} - ${event.message} - ${event.locationName}`}</p>
+            <WhiteSpace />
+          </Timeline.Item>
+        ))}
+      </Timeline>{" "}
+    </div>
+  );
 };
 
 export default Trip;

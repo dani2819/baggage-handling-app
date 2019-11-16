@@ -7,15 +7,14 @@ export function QrScanner() {
 
   const handleScan = data => {
     if (data) {
-      setResult(result);
-      localStorage.setItem('qr-code', data.toString());
+      setResult(data);
+      localStorage.setItem("qr-code", data.toString());
     }
   };
 
   const handleError = err => {
     console.error(err);
   };
-
   return (
     <section className="Qr-scanner">
       <QrReader delay={300} onError={handleError} onScan={handleScan} />
