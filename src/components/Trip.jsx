@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { mapTripWithMessages } from "../utils/utils";
 import { WhiteSpace } from "antd-mobile";
 import moment from "moment";
-import { Divider, Timeline, Icon, Card, Button } from "antd";
+import { Divider, Timeline, Icon, Card, Button, Avatar } from "antd";
 import { getBaggageData } from "../services/userApi";
 import "../styles/Trip.less";
 
@@ -14,8 +14,8 @@ const Trip = ({ changeTitle, match }) => {
       const trip = await getBaggageData(match.params.id);
       setTrip(trip.data.data);
     };
+
     getTrip();
-    // changeTitle(`${trip.source} - ${trip.destination}`);
   }, []);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ const Trip = ({ changeTitle, match }) => {
     return "Loading...";
   }
   const mappedTrip = mapTripWithMessages(trip);
-  console.log(mappedTrip);
   const { latestEvent } = mappedTrip;
   const mapsSrc = `https://maps.google.com/maps?q=${latestEvent.location}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
   return (
@@ -35,6 +34,9 @@ const Trip = ({ changeTitle, match }) => {
       <WhiteSpace />
       <Card>
         <Card.Meta
+          avatar={
+            <Avatar src="https://media.istockphoto.com/photos/traveler-with-suitcase-in-airport-conceptyoung-girl-walking-with-picture-id874914576?k=6&m=874914576&s=612x612&w=0&h=uwjSxiRdodA1-ZM_pb-m_pk_t7eDHHUcRAiImjQxfL4=" />
+          }
           title={latestEvent.message}
           description={latestEvent.submessage}
         />
