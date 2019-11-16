@@ -9,6 +9,27 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <script>
+      if ("addEventListener" in document) {
+        document.addEventListener(
+          "DOMContentLoaded",
+          function() {
+            FastClick.attach(document.body);
+          },
+          false
+        );
+      }
+      if (!window.Promise) {
+        document.writeln(
+          '<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' +
+            ">" +
+            "<" +
+            "/" +
+            "script>"
+        );
+      }
+    </script>
     <link rel="apple-touch-icon" href="logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -26,18 +47,27 @@
     -->
     <title>React App</title>
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('worker.js').then(function(registration) {
-            console.log('Worker registration successful', registration.scope);
-          }, function(err) {
-            console.log('Worker registration failed', err);
-          }).catch(function(err) {
-            console.log(err);
-          });
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+          navigator.serviceWorker
+            .register("worker.js")
+            .then(
+              function(registration) {
+                console.log(
+                  "Worker registration successful",
+                  registration.scope
+                );
+              },
+              function(err) {
+                console.log("Worker registration failed", err);
+              }
+            )
+            .catch(function(err) {
+              console.log(err);
+            });
         });
       } else {
-        console.log('Service Worker is not supported by browser.');
+        console.log("Service Worker is not supported by browser.");
       }
     </script>
   </head>
