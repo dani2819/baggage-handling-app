@@ -1,13 +1,12 @@
 import React from "react";
-import Routes from './router/AppRouter';
 import "../styles/App.less";
 
-function App() {
+function Home() {
   return (
     <div className="App">
-      <Routes />
+      I am home
     </div>
   );
 }
 
-export default App;
+export default Home;
