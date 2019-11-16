@@ -1,5 +1,27 @@
 import firebase from 'firebase';
 
+
+const askForPermissionToReceiveNotifications = async () => {
+  try {
+    if(localStorage.getItem('fbToken')) {
+      console.log('already have token, not initializing token');
+      console.log('fbToken : ', localStorage.getItem('fbToken'));
+      return Promise.resolve(true);
+    } else {
+      const messaging = firebase.messaging();
+      return messaging.requestPermission()
+        .then(_ => messaging.getToken())
+        .then(token => {
+          console.log('token acquired');
+          console.log('fbToken : ', token);
+          localStorage.setItem('fbToken', token);
+        }).catch(error => console.log('error from firebase ' + error.toString()))
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export const initializeFirebase = () => {
   firebase.initializeApp({
     apiKey: "AIzaSyBe8YQqiuD7-RYggrzteB6XywS3WK7SUsE",
@@ -18,24 +40,16 @@ export const initializeFirebase = () => {
       console.log('registering service worker');
       const messaging = firebase.messaging();
       messaging.useServiceWorker(registration);
-
-      messaging.onMessage(message => {
-        console.log('got message');
-        console.log(message);
-      })
+      askForPermissionToReceiveNotifications()
+        .then(token => {
+          console.log('starting onMessage');
+          messaging.onMessage(message => {
+            console.log('got message');
+            console.log(message);
+          })
+        });
     });
-}
+};
 
-export const askForPermissionToReceiveNotifications = async () => {
-  try {
-    const messaging = firebase.messaging();
-    await messaging.requestPermission();
-    const token = await messaging.getToken();
-    console.log('token do usuário:', token);
 
-    return token;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
