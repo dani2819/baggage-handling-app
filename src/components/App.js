@@ -1,15 +1,18 @@
 import React from "react";
-import logo from "./logo.svg";
 import Button from "antd/es/button";
+import QrScanner from "./QrReader";
+import "../styles/App.css";
 
-import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Button type="primary">Button</Button>
+        <QrScanner />
       </header>
+      <div id="root">
+      </div>
+
     </div>
   );
 }
