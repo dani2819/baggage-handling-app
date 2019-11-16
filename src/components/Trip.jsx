@@ -30,8 +30,7 @@ const Trip = ({ changeTitle, match }) => {
   return (
     <div>
       <iframe width="100%" src={mapsSrc} scrolling="no"></iframe>
-      <Divider />
-      <WhiteSpace />
+      <Divider style={{ margin: "10px 0px" }} />
       <Card>
         <Card.Meta
           avatar={
@@ -41,11 +40,10 @@ const Trip = ({ changeTitle, match }) => {
           description={latestEvent.submessage}
         />
       </Card>
+      <Divider style={{ margin: "10px 0px" }} />
+      <h2>Baggage History</h2>
       <WhiteSpace />
-      <Divider />
-      <h1>Baggage History</h1>
-      <WhiteSpace />
-      <Timeline>
+      <Timeline style={{ fontWeight: "bold" }}>
         {mappedTrip.events.map(event => (
           <Timeline.Item
             dot={
