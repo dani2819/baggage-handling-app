@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { mapTripWithMessages } from "../utils/utils";
 const Trip = ({ changeTitle }) => {
   const [trip, setTrip] = useState(null);
 
@@ -11,8 +11,9 @@ const Trip = ({ changeTitle }) => {
       date: "November, 16, 2019",
       status: {
         // This is the last event
-        eventCode: "BAGGAGE_DROPPED",
-        locationName: "Helsinki"
+        eventType: "CHECKED_IN",
+        locationName: "Helsinki",
+        timeStamp: "2019-01-01"
       },
       events: [
         {
@@ -26,13 +27,14 @@ const Trip = ({ changeTitle }) => {
 
   useEffect(() => {
     changeTitle("Trip");
-  }, [changeTitle]);
+  }, []);
 
   if (!trip) {
     return "Loading...";
   }
-
-  return <div>{trip.events[0].eventType}</div>;
+  const mappedTrip = mapTripWithMessages(trip);
+  console.log(mappedTrip);
+  return <div> {trip.baggageId}</div>;
 };
 
 export default Trip;
