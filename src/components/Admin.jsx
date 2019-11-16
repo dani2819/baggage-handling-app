@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import { Button } from "antd-mobile";
 import QRCode from 'react-qr-code';
 import '../styles/Admin.less';
+import axios from 'axios';
+import * as api from '../services/adminApi.js';
 
 const uuid = require('uuid/v1');
 
@@ -18,6 +20,13 @@ const Admin = ({changeTitle}) => {
     const source = "Helsinki";
 
     // send to backend
+    api.sendBaggageData(uuid(), "Munich", "Helsinki")
+      .then(function (response) {
+        console.log(response);
+      })
+        .catch(function (error) {
+        console.log(error);
+      });
 
     setId(baggageId);
   }
