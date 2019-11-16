@@ -5,6 +5,8 @@ import Home from "../Home";
 import QrReader from "../QrReader";
 import Header from "../Header";
 import Trip from "../Trip";
+import Admin from "../Admin";
+import BaggageHandler from "../BaggageHandler";
 
 class getRoutes extends React.Component {
   state = { title: "Home" };
@@ -37,17 +39,25 @@ class getRoutes extends React.Component {
               )}
               exact
             />
-            <Route
-              path="/**"
-              render={props => (
-                <Home {...props} changeTitle={this.changeTitle.bind(this)} />
-              )}
-            />
 
             <Route
               path="/admin"
               render={props => (
                 <Admin {...props} changeTitle={this.changeTitle.bind(this)} />
+              )}
+            />
+
+            <Route
+              path="/baggage-handler"
+              render={props => (
+                <BaggageHandler {...props} changeTitle={this.changeTitle.bind(this)} />
+              )}
+            />
+
+            <Route
+              path="/**"
+              render={props => (
+                <Home {...props} changeTitle={this.changeTitle.bind(this)} />
               )}
             />
           </Switch>
