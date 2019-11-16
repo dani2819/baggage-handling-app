@@ -1,16 +1,11 @@
 import React from "react";
-import Button from "antd/es/button";
-import QrScanner from "./QrReader";
+import Routes from "./router/AppRouter";
 import "../styles/App.less";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <QrScanner />
-      </header>
-      <div id="root">
-      </div>
+      <Routes />
     </div>
   );
 }
