@@ -1,16 +1,19 @@
 import firebase from 'firebase';
 
 
-const askForPermissionToReceiveNotifications = async () => {
+const askForPermissionToReceiveNotifications = async (messaging) => {
   try {
     if(localStorage.getItem('fbToken')) {
       console.log('already have token, not initializing token');
       console.log('fbToken : ', localStorage.getItem('fbToken'));
       return Promise.resolve(true);
     } else {
-      const messaging = firebase.messaging();
       return messaging.requestPermission()
-        .then(_ => messaging.getToken())
+        .then(permission => {
+          console.log('got permission');
+          console.log(permission);
+          return messaging.getToken()
+        })
         .then(token => {
           console.log('token acquired');
           console.log('fbToken : ', token);
@@ -40,7 +43,7 @@ export const initializeFirebase = () => {
       console.log('registering service worker');
       const messaging = firebase.messaging();
       messaging.useServiceWorker(registration);
-      askForPermissionToReceiveNotifications()
+      askForPermissionToReceiveNotifications(messaging)
         .then(token => {
           console.log('starting onMessage');
           messaging.onMessage(message => {
