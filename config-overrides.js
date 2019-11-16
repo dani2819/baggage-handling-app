@@ -1,9 +1,9 @@
-const rewireLess = require("react-app-rewire-less");
+const { addLessLoader, override } = require("customize-cra");
 
-module.exports = function override(config, env) {
-  config = rewireLess.withLoaderOptions({
-    javascriptEnabled: true
-  })(config, env);
-
-  return config;
-};
+module.exports = override(
+  addLessLoader({
+    strictMath: true,
+    noIeCompat: true,
+    localIdentName: "[local]--[hash:base64:5]" // if you use CSS Modules, and custom `localIdentName`, default is '[local]--[hash:base64:5]'.
+  })
+);
