@@ -1,7 +1,4 @@
-import axios from 'axios';
+import { apiClient } from "./apiClient";
 export const sendBaggageData = (baggageId, destination, source) => {
-    return axios.post(
-        'https://rafay-jun-int-backend.azurewebsites.net/api/baggages',
-        { baggageId, source, destination  }
-    );
+  return apiClient.post("/baggages", { baggageId, source, destination });
 };
