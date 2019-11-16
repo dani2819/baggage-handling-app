@@ -8,7 +8,7 @@ export function QrScanner() {
   const handleScan = data => {
     if (data) {
       setResult(data);
-      document.localStorage.set("qr-code", data.toString());
+      localStorage.setItem('qr-code', data.toString())
     }
   };
 

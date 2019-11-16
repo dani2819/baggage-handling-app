@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+import {initializeFirebase} from "./push-notification";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -10,4 +10,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
-serviceWorker.register();
+// serviceWorker.register();
+initializeFirebase();
