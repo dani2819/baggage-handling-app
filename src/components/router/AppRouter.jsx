@@ -5,7 +5,6 @@ import Home from "../Home";
 import QrReader from "../QrReader";
 import Header from "../Header";
 import Trip from "../Trip";
-import Admin from "../Admin";
 
 class getRoutes extends React.Component {
   state = { title: "Home" };
@@ -25,13 +24,11 @@ class getRoutes extends React.Component {
               render={props => (
                 <Home {...props} changeTitle={this.changeTitle.bind(this)} />
               )}
-              exact
             />
             <Route
               path="/qr-reader"
               changeTitle={this.changeTitle}
               component={QrReader}
-              exact
             />
             <Route
               path="/trip/:id"
