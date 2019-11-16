@@ -1,8 +1,7 @@
 import React from "react";
 import Button from "antd/es/button";
 import QrScanner from "./QrReader";
-import "../styles/App.css";
-
+import "../styles/App.less";
 
 function App() {
   return (
@@ -12,7 +11,6 @@ function App() {
       </header>
       <div id="root">
       </div>
-
     </div>
   );
 }
