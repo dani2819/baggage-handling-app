@@ -1,7 +1,9 @@
 import React from "react";
 import { Icon } from "antd";
 import { Button, WhiteSpace } from "antd-mobile";
+import { getUserBaggageData } from "../services/userApi";
 import { Card, Timeline } from "antd";
+import moment from "moment";
 
 import "../styles/Home.less";
 
@@ -12,55 +14,27 @@ const FloatingButton = props => (
   </Button>
 );
 class Home extends React.Component {
-  state = {
-    trips: [
-      {
-        baggageId: "asdasdasd",
-        source: "HKI",
-        destination: "KHI",
-        date: "November, 16, 2019",
-        status: {
-          // This is the last event
-          eventCode: "BAGGAGE_DROPPED",
-          locationName: "Helsinki"
-        }
-      },
-      {
-        baggageId: "asdasdasd",
-        source: "HKI",
-        destination: "KHI",
-        date: "November, 16, 2019",
-        status: {
-          // This is the last event
-          eventCode: "BAGGAGE_DROPPED",
-          locationName: "Helsinki"
-        }
-      },
-      {
-        baggageId: "asdasdasd",
-        source: "HKI",
-        destination: "KHI",
-        date: "November, 16, 2019",
-        status: {
-          // This is the last event
-          eventCode: "BAGGAGE_DROPPED",
-          locationName: "Helsinki"
-        }
-      }
-    ]
-  };
+  state = { trips: null };
   onFloatingBtnClicked(e) {
     e.preventDefault();
     return this.props.history.push("/qr-reader");
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.changeTitle("Your Trips");
+    const baggageData = await getUserBaggageData(
+      localStorage.getItem("fbToken")
+    );
+    this.setState({ trips: baggageData.data.data });
   }
 
   changeRoute = url => this.props.history.push(url);
 
   render() {
     const { trips } = this.state;
+
+    if (!trips) {
+      return <p>Loading...</p>;
+    }
     return (
       <>
         <FloatingButton onBtnClick={this.onFloatingBtnClicked.bind(this)} />
@@ -77,7 +51,7 @@ class Home extends React.Component {
                     }}
                   >
                     <h1>{`${trip.source} - ${trip.destination}`}</h1>
-                    <p>{`${trip.date}`}</p>
+                    <p>{`${moment(trip.date).format("MMM Do YY, h:mm A")}`}</p>
                   </Card>
                 </Timeline.Item>
               ))}

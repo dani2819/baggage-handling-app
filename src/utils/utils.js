@@ -34,9 +34,9 @@ const EVENT_CODES = {
 };
 
 export const mapTripWithMessages = trip => {
-  const status = trip.status;
-  const eventData = EVENT_CODES[status.eventType];
-  trip.status = { ...trip.status, ...eventData };
+  const latestEvent = trip.latestEvent;
+  const eventData = EVENT_CODES[latestEvent.eventType];
+  trip.latestEvent = { ...trip.latestEvent, ...eventData };
   trip.events = trip.events.map(event => {
     const eventData = EVENT_CODES[event.eventType];
     return { ...event, ...eventData };
