@@ -1,6 +1,8 @@
 import React from "react";
 import { Icon } from "antd";
 import { Button, WhiteSpace } from "antd-mobile";
+import { Card, Timeline } from "antd";
+
 import "../styles/Home.less";
 
 const FloatingButton = props => (
@@ -14,8 +16,30 @@ class Home extends React.Component {
     trips: [
       {
         baggageId: "asdasdasd",
-        source: "Helsinki",
-        destination: "Karachi",
+        source: "HKI",
+        destination: "KHI",
+        date: "November, 16, 2019",
+        status: {
+          // This is the last event
+          eventCode: "BAGGAGE_DROPPED",
+          locationName: "Helsinki"
+        }
+      },
+      {
+        baggageId: "asdasdasd",
+        source: "HKI",
+        destination: "KHI",
+        date: "November, 16, 2019",
+        status: {
+          // This is the last event
+          eventCode: "BAGGAGE_DROPPED",
+          locationName: "Helsinki"
+        }
+      },
+      {
+        baggageId: "asdasdasd",
+        source: "HKI",
+        destination: "KHI",
         date: "November, 16, 2019",
         status: {
           // This is the last event
@@ -32,6 +56,9 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.changeTitle("Your Trips");
   }
+
+  changeRoute = url => this.props.history.push(url);
+
   render() {
     const { trips } = this.state;
     return (
@@ -39,14 +66,29 @@ class Home extends React.Component {
         <FloatingButton onBtnClick={this.onFloatingBtnClicked.bind(this)} />
         <WhiteSpace />
         <div className="trips">
-          {trips && trips.map(trip => <div className="trip"></div>)}
-          {trips && (
-            <>
-              <br />
-              <br />
-              <h2>Sorry no trips available, start by adding a Trip!</h2>
-            </>
-          )}
+          <Timeline>
+            {trips &&
+              trips.map(trip => (
+                <Timeline.Item>
+                  <Card
+                    className="trip"
+                    onClick={() => {
+                      this.changeRoute("/trip/" + trip.baggageId);
+                    }}
+                  >
+                    <h1>{`${trip.source} - ${trip.destination}`}</h1>
+                    <p>{`${trip.date}`}</p>
+                  </Card>
+                </Timeline.Item>
+              ))}
+            {!trips && (
+              <>
+                <br />
+                <br />
+                <h2>Sorry no trips available, start by adding a Trip!</h2>
+              </>
+            )}
+          </Timeline>
         </div>
       </>
     );
