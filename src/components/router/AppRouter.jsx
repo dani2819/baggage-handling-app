@@ -27,12 +27,7 @@ class getRoutes extends React.Component {
             <Route
               path="/qr-reader"
               changeTitle={this.changeTitle}
-              render={props => (
-                <QrReader
-                  {...props}
-                  changeTitle={this.changeTitle.bind(this)}
-                />
-              )}
+              Component={QrReader}
             />
           </Switch>
         </WingBlank>

@@ -3,7 +3,11 @@ import { NavBar } from "antd-mobile";
 
 class Header extends Component {
   render() {
-    return <NavBar>{this.props.title}</NavBar>;
+    return (
+      <NavBar>
+        <b>{this.props.title}</b>
+      </NavBar>
+    );
   }
 }
 
