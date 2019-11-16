@@ -30,7 +30,7 @@ class getRoutes extends React.Component {
             <Route
               path="/qr-reader"
               changeTitle={this.changeTitle}
-              Component={QrReader}
+              component={QrReader}
               exact
             />
             <Route
