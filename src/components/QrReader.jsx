@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import QrReader from 'react-qr-reader';
+import '../styles/qr-reader.less';
 
 export function QrScanner() {
   const [result, setResult] = useState('No result');
@@ -16,18 +17,14 @@ export function QrScanner() {
   };
 
   return (
-    <div>
-      <QrReader
-        delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        style={{ width: '100%' }}
-      />
-      <p>{result}</p>
-    </div>
+     <section className="Qr-scanner">
+       <QrReader
+         delay={300}
+         onError={handleError}
+         onScan={handleScan}
+       />
+     </section>
   );
-
-
 }
 
 export default QrScanner;
