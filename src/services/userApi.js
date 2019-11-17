@@ -1,7 +1,10 @@
 import { apiClient } from "./apiClient";
 
 export const getUserBaggageData = deviceId => {
-  return apiClient.get('api/baggages', {
+  if (!deviceId) {
+    return;
+  }
+  return apiClient.get("api/baggages", {
     params: { deviceId }
   });
 };
