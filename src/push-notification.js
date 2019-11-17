@@ -53,6 +53,3 @@ export const initializeFirebase = () => {
         });
     });
 };
-
-
-

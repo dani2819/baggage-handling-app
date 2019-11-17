@@ -16,7 +16,7 @@ export function QrScanner({status, history}) {
           console.log('scanned sent to backend');
           console.log(res);
         }).catch(error => {
-          console.log('there is some error, try again');
+          console.log('there is some error, try again',error);
       });
     }
   };
@@ -33,7 +33,7 @@ export function QrScanner({status, history}) {
           console.log('status update');
           console.log(res);
         }).catch(error => {
-          console.log('there is some error, try again');
+          console.log('there is some errorasdasd',error);
       });
     }
   };

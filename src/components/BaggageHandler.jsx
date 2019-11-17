@@ -15,7 +15,7 @@ const baggage_status = [
   "MISSING"
 ];
 
-const BaggageHandler = ({changeTitle}) => {
+const BaggageHandler = ({changeTitle, history}) => {
   const [status, setStatus] = useState('');
 
   const renderStatus = () => {
@@ -36,7 +36,7 @@ const BaggageHandler = ({changeTitle}) => {
     <div>
       {status === '' ?
         renderStatus() :
-        <QrScanner status={status}/>
+        <QrScanner status={status} history={history}/>
     }
     </div>
   );

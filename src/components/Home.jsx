@@ -23,7 +23,7 @@ class Home extends React.Component {
   async componentDidMount() {
     this.props.changeTitle("Your Trips");
     const baggageData = await getUserBaggageData(
-      localStorage.getItem("fbToken");
+      localStorage.getItem("fbToken")
     );
     this.setState({ trips: baggageData.data.data });
   }
