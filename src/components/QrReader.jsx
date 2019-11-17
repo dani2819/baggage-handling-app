@@ -29,6 +29,7 @@ export function QrScanner({status, history}) {
         status,
         "Istanbul"
       ).then(res => {
+          history.push("/");
           console.log('status update');
           console.log(res);
         }).catch(error => {

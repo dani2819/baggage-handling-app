@@ -13,6 +13,7 @@ const FloatingButton = props => (
     Track a new baggage
   </Button>
 );
+
 class Home extends React.Component {
   state = { trips: null };
   onFloatingBtnClicked(e) {
@@ -22,7 +23,7 @@ class Home extends React.Component {
   async componentDidMount() {
     this.props.changeTitle("Your Trips");
     const baggageData = await getUserBaggageData(
-      localStorage.getItem("fbToken")
+      localStorage.getItem("fbToken");
     );
     this.setState({ trips: baggageData.data.data });
   }
@@ -35,6 +36,7 @@ class Home extends React.Component {
     if (!trips) {
       return <p>Loading...</p>;
     }
+
     return (
       <>
         <FloatingButton onBtnClick={this.onFloatingBtnClicked.bind(this)} />
