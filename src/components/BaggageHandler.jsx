@@ -36,7 +36,7 @@ const BaggageHandler = ({changeTitle}) => {
     <div>
       {status === '' ?
         renderStatus() :
-        <QrScanner />
+        <QrScanner status={status}/>
     }
     </div>
   );

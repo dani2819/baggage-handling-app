@@ -27,11 +27,15 @@ class getRoutes extends React.Component {
                 <Home {...props} changeTitle={this.changeTitle.bind(this)} />
               )}
             />
+
             <Route
               path="/qr-reader"
               changeTitle={this.changeTitle}
-              component={QrReader}
+              render={props => (
+                <QrReader {...props} status={null} />
+              )}
             />
+
             <Route
               path="/trip/:id"
               render={props => (

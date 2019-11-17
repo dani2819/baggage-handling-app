@@ -16,11 +16,12 @@ const Admin = ({changeTitle}) => {
 
   const generateQR = () => {
     const baggageId = uuid();
+    const trimmedId = baggageId.substring(15, baggageId.length);
     const destination = "Munich";
     const source = "Helsinki";
 
     // send to backend
-    api.sendBaggageData(uuid(), "Munich", "Helsinki")
+    api.sendBaggageData(trimmedId, "Munich", "Helsinki")
       .then(function (response) {
         console.log(response);
       })

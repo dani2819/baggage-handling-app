@@ -5,14 +5,14 @@ import config from '../assets/config';
 import "../styles/qr-reader.less";
 import * as api from "../services/adminApi.js";
 
-export function QrScanner({status}) {
+export function QrScanner({status, history}) {
   const updateDeviceId = (baggageId) => {
     if (baggageId) {
+      baggageId = baggageId.substring(15, baggageId.length);
       localStorage.setItem('qr-code', baggageId.toString());
-      axios.put(`${config.baseUrl}${config.baggages}`, {
-        baggageId: baggageId,
-        deviceId: localStorage.getItem('fbToken')
-      }).then(res => {
+      axios.get("https://rafay-jun-int-backend.azurewebsites.net/api/baggages/" + baggageId + "/" + localStorage.getItem('fbToken'))
+      .then(res => {
+          history.push("/");
           console.log('scanned sent to backend');
           console.log(res);
         }).catch(error => {
@@ -22,16 +22,19 @@ export function QrScanner({status}) {
   };
 
   const updateBaggageStatus = (baggageId, status) => {
-    api.updateBaggageStatus(
-      baggageId,
-      status,
-      "Istanbul"
-    ).then(res => {
-        console.log('status update');
-        console.log(res);
-      }).catch(error => {
-        console.log('there is some error, try again');
-    });
+    if (baggageId) {
+      baggageId = baggageId.substring(15, baggageId.length);
+      api.updateBaggageStatus(
+        baggageId,
+        status,
+        "Istanbul"
+      ).then(res => {
+          console.log('status update');
+          console.log(res);
+        }).catch(error => {
+          console.log('there is some error, try again');
+      });
+    }
   };
 
   const handleScan = baggageId => {
