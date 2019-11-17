@@ -14,7 +14,7 @@ const FloatingButton = props => (
   </Button>
 );
 class Home extends React.Component {
-  state = { trips: null };
+  state = { trips: [] };
   onFloatingBtnClicked(e) {
     e.preventDefault();
     return this.props.history.push("/qr-reader");
@@ -32,9 +32,6 @@ class Home extends React.Component {
   render() {
     const { trips } = this.state;
 
-    if (!trips) {
-      return <p>Loading...</p>;
-    }
     return (
       <>
         <FloatingButton onBtnClick={this.onFloatingBtnClicked.bind(this)} />
@@ -42,6 +39,7 @@ class Home extends React.Component {
         <div className="trips">
           <Timeline>
             {trips &&
+              trips.length &&
               trips.map(trip => (
                 <Timeline.Item>
                   <Card
@@ -55,7 +53,7 @@ class Home extends React.Component {
                   </Card>
                 </Timeline.Item>
               ))}
-            {!trips && (
+            {!trips.length && (
               <>
                 <br />
                 <br />
