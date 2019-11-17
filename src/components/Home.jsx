@@ -25,7 +25,8 @@ class Home extends React.Component {
     const baggageData = await getUserBaggageData(
       localStorage.getItem("fbToken")
     );
-    this.setState({ trips: baggageData.data.data });
+    if (baggageData && baggageData.data)
+      this.setState({ trips: baggageData.data.data });
   }
 
   changeRoute = url => this.props.history.push(url);
